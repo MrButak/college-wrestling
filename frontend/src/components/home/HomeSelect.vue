@@ -134,6 +134,17 @@ function getSchoolInfo() {
         return;
     };
     
+    // db call
+    
+    // let response = await axios({
+    //     method: 'post',
+    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //     url: '/searchcountry',
+    //     data: input.value  
+    // })
+    
+    // this.countries = response.data;
+    // return this.countries;   
 
     
 };
