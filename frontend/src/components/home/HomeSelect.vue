@@ -112,10 +112,10 @@ function conferenceSelected() {
                 schoolValue.append(selectElement);
             };
             break;
-        };
+        }
 
         // add default 'School' option if no conference selected
-        if(conferenceValue.value === 'conference') {
+        else if(conferenceValue.value === 'conference') {
             
             selectElement = document.createElement('option');
             selectElement.value = 'school';
@@ -134,7 +134,7 @@ function getSchoolInfo() {
         return;
     };
     
-    
+
     
 };
 
