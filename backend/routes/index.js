@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 
 const getSchedule = require('../controllers/index')
@@ -14,6 +15,6 @@ const allowRequest = app.use(function(req, res, next) {
     next();
 });
 
-router.get('/schedule', allowRequest, getSchedule.getSchedule);
+router.get('/schedule', getSchedule.getSchedule);
 
 module.exports = router;

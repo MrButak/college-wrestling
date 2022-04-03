@@ -55,8 +55,10 @@
 
 </template>
 
-<script setup>import { ref, onMounted } from 'vue';
+<script async setup>
+import { ref, onMounted } from 'vue';
 
+import axios from 'axios';
 
 let conferenceValue;
 let schoolValue;
@@ -126,7 +128,7 @@ function conferenceSelected() {
     };
 };
 
-function getSchoolInfo() {
+async function getSchoolInfo () {
 
     if(schoolValue.value === 'school') {
 
@@ -134,15 +136,18 @@ function getSchoolInfo() {
         return;
     };
     
+    console.log(schoolValue.value)
     // db call
+
+    let response = await axios({
+        method: 'get',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        url: 'http://localhost:8080/schedule/',
+        params: {school: schoolValue.value}
+        
+    })
     
-    // let response = await axios({
-    //     method: 'post',
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //     url: '/searchcountry',
-    //     data: input.value  
-    // })
-    
+    console.log(response.data);
     // this.countries = response.data;
     // return this.countries;   
 
