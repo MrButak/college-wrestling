@@ -15,6 +15,6 @@ const allowRequest = app.use(function(req, res, next) {
     next();
 });
 
-router.get('/schedule', getSchedule.getSchedule);
+router.get('/schedule', allowRequest, getSchedule.getSchedule);
 
 module.exports = router;

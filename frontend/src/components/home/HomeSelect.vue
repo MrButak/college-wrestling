@@ -136,9 +136,8 @@ async function getSchoolInfo () {
         return;
     };
     
-    console.log(schoolValue.value)
+    
     // db call
-
     let response = await axios({
         method: 'get',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -147,7 +146,9 @@ async function getSchoolInfo () {
         
     })
     
-    console.log(response.data);
+    console.log(response.data)
+    // console.log(schedule)
+    console.log("nothing?")
     // this.countries = response.data;
     // return this.countries;   
 

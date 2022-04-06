@@ -13,10 +13,11 @@ client.connect();
 
 exports.dbGetSchedule = async (school) => {
 
-    console.log(school, 'working in dbmanager.js');
-    // const text = 'SELECT * FROM cities WHERE name ILIKE ($1) AND country ILIKE ($2) LIMIT 30';
+    
+    const text = 'SELECT * FROM events';
     // const values = [cityName + "%", countryName];
-    // const res = await client.query(text, values);
+    const res = await client.query(text);
     // //await client.end();
-    // return res.rows; 
+    
+    return res.rows; 
 };
