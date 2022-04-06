@@ -14,7 +14,7 @@ client.connect();
 exports.dbGetSchedule = async (school) => {
 
     
-    const text = 'SELECT * FROM events';
+    const text = 'SELECT * FROM events ORDER BY dates[0] ASC';
     // const values = [cityName + "%", countryName];
     const res = await client.query(text);
     // //await client.end();

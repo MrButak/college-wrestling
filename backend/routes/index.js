@@ -3,10 +3,7 @@ var app = express();
 var router = express.Router();
 
 const getSchedule = require('../controllers/index')
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+
 
 // allow requests from vue front end (development only)
 const allowRequest = app.use(function(req, res, next) {

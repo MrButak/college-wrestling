@@ -1,7 +1,7 @@
 <template>
 
 
-<div class="flex flex-col items-center w-full gap-12">
+<div class="flex flex-col items-center w-full gap-12 mt-12">
 
     <select class="text-center w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
         <option value="">
@@ -16,7 +16,7 @@
     </select>
 
     <div class="flex gap-12">
-        <select @change="conferenceSelected($event)" id="conferences-select" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
+        <select @change="displaySchools($event)" id="conferences-select" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
             <option value="conference">
                 Conference
             </option>
@@ -51,15 +51,18 @@
     </div>
     <button @click="getSchoolInfo($event)" class="block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">Go</button>
 
+<Schedule ref="scheduleComponent" />
+
 </div>
 
 </template>
 
 <script async setup>
 import { ref, onMounted } from 'vue';
-
 import axios from 'axios';
+import Schedule from './Schedule.vue';
 
+let scheduleComponent = ref(Schedule);
 let conferenceValue;
 let schoolValue;
 let schoolsObject;
@@ -69,6 +72,12 @@ onMounted(() => {
     setComponentVariables();
 
 });
+
+ defineExpose({
+     Schedule
+ });
+
+ 
 
 function setComponentVariables() {
 
@@ -86,7 +95,7 @@ function setComponentVariables() {
     };
 };
 
-function conferenceSelected() {
+function displaySchools() {
 
     let selectElement;
     let conferencesArry = [];
@@ -136,7 +145,6 @@ async function getSchoolInfo () {
         return;
     };
     
-    
     // db call
     let response = await axios({
         method: 'get',
@@ -146,11 +154,10 @@ async function getSchoolInfo () {
         
     })
     
-    console.log(response.data)
-    // console.log(schedule)
-    console.log("nothing?")
-    // this.countries = response.data;
-    // return this.countries;   
+    scheduleComponent.value.displaySchedule(response.data)
+    
+    // console.log(response.data)
+     
 
     
 };
