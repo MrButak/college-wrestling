@@ -10,20 +10,26 @@
     </select>
 
     <!-- conferences and schools SELECT elements -->
-    <div class="flex gap-12">
+    <div class="flex gap-12 text-center">
 
-        <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-            <option v-bind:value="key" v-for="(value, key) in conAndSchObject">
-                {{ key.toUpperCase() }}
-            </option>
-        </select>
+        <div class="flex flex-col">
+            <text>Conference</text>
+            <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                <option v-bind:value="key" v-for="(value, key) in conAndSchObject">
+                    {{ key.toUpperCase() }}
+                </option>
+            </select>
+        </div>
 
-        <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-            <option v-if="!displaySchools" value="" selected>Schools</option>
-            <option v-if="displaySchools" v-for="sch in conAndSchObject[conference]">
-                {{ sch }} 
-            </option>
-        </select>
+        <div class="flex flex-col">
+            <text>School</text>
+            <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                <option v-if="!displaySchools" value="" selected>Schools</option>
+                <option v-if="displaySchools" v-for="sch in conAndSchObject[conference]">
+                    {{ sch }} 
+                </option>
+            </select>
+        </div>
 
     </div>
 
@@ -77,6 +83,7 @@ onMounted(() => {
 
 function getSchoolInfo(event) {
 
+    // I'll do a db call here
     console.log(school.value)
 }
 </script>
