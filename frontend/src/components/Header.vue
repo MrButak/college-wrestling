@@ -1,6 +1,6 @@
 <template>
 
-<header class="flex items-center justify-center bg-indigo-200 h-32">
+<header class="flex items-center justify-center bg-indigo-200 py-4">
     <h1 class="text-slate-900">D1 Collegiate Wrestling</h1>
 </header>
 
@@ -16,7 +16,4 @@ import { ref } from 'vue'
 
 <style scoped>
 
-.appTitle {
-    color: #213E3B;
-}
 </style>

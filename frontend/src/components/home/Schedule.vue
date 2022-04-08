@@ -1,39 +1,35 @@
 <template>
 
+<div class="flex flex-1 flex-col items-center w-full gap-12">
+    <table id="schedule-table" class="table-auto">
+        <tr id="schedule-table-header">
+            <th>Dates</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Opponent</th>
+            <th>Win</th>
+            <th>Score</th>
+        </tr>
+        <!-- v-for='' -->
 
-<div class="flex flex-col items-center w-full gap-12">
-
-
-
+        <tr id="schedule-table-dates">
+        </tr>
+        <tr id="schedule-table-type">
+        </tr>
+        <tr id="schedule-table-name">
+        </tr>
+        <tr id="schedule-table-opponent">
+        </tr>
+        <tr id="schedule-table-win">
+        </tr>
+        <tr id="schedule-table-score">
+        </tr>
+    </table>
 </div>
-
-<table id="schedule-table" class="table-auto">
-    <tr id="schedule-table-header">
-        <th>Dates</th>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Opponent</th>
-        <th>Win</th>
-        <th>Score</th>
-    </tr>
-    <tr id="schedule-table-dates">
-    </tr>
-    <tr id="schedule-table-type">
-    </tr>
-    <tr id="schedule-table-name">
-    </tr>
-    <tr id="schedule-table-opponent">
-    </tr>
-    <tr id="schedule-table-win">
-    </tr>
-    <tr id="schedule-table-score">
-    </tr>
-
-</table>
-
 </template>
 
 <script setup>
+
 import { ref, onMounted } from 'vue';
 
 let scheduleHeader;
