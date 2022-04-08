@@ -11,13 +11,20 @@
 
     <!-- conferences and schools SELECT elements -->
     <div class="flex gap-12">
+
         <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-            <option v-bind:value="key" v-for="(value, key) in conAndSchObject">{{ key.toUpperCase() }}
+            <option v-bind:value="key" v-for="(value, key) in conAndSchObject">
+                {{ key.toUpperCase() }}
             </option>
         </select>
 
-        <select class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
+        <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+            <option v-if="!displaySchools" value="" selected>Schools</option>
+            <option v-if="displaySchools" v-for="sch in conAndSchObject[conference]">
+                {{ sch }} 
+            </option>
         </select>
+
     </div>
 
     <button @click="getSchoolInfo($event)" class="block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">Go</button>
@@ -28,14 +35,23 @@
 
 </template>
 
+
 <script async setup>
-import { ref, onMounted } from 'vue';
+
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import Schedule from './Schedule.vue';
 
 
-let conference = ref()
-// let schools = computed(() => )
+let conference = ref();
+let school = ref();
+
+let displaySchools = computed(() => {
+    if(conference.value) {
+        return true;
+    }
+    return false;
+});
 
 
 // to call functions in Schedule.vue component
@@ -58,6 +74,11 @@ onMounted(() => {
 
 
 });
+
+function getSchoolInfo(event) {
+
+    console.log(school.value)
+}
 </script>
 
 
