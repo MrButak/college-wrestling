@@ -1,9 +1,17 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+const getSchedule = require('../controllers/index')
+
+
+// allow requests from vue front end (development only)
+const allowRequest = app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
+
+router.get('/schedule', allowRequest, getSchedule.getSchedule);
 
 module.exports = router;
