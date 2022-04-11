@@ -58,6 +58,11 @@ onMounted(() => {
 
 
 });
+
+// function async getSchoolInfo(event) {
+
+
+// };
 </script>
 
 

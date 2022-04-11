@@ -2,28 +2,7 @@
 
 <div class="flex flex-1 flex-col items-center w-full gap-12">
     <table id="schedule-table" class="table-auto">
-        <tr id="schedule-table-header">
-            <th>Dates</th>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Opponent</th>
-            <th>Win</th>
-            <th>Score</th>
-        </tr>
-        <!-- v-for='' -->
-
-        <tr id="schedule-table-dates">
-        </tr>
-        <tr id="schedule-table-type">
-        </tr>
-        <tr id="schedule-table-name">
-        </tr>
-        <tr id="schedule-table-opponent">
-        </tr>
-        <tr id="schedule-table-win">
-        </tr>
-        <tr id="schedule-table-score">
-        </tr>
+        
     </table>
 </div>
 </template>
@@ -32,17 +11,11 @@
 
 import { ref, onMounted } from 'vue';
 
-let scheduleHeader;
-let scheduleDates;
-let scheduleType;
-let scheduleName;
-let scheduleOpponent;
-let scheduleWin;
-let scheduleScore;
+
 
 onMounted(() => {
 
-    setComponentVariables();
+    
 
 });
 
@@ -50,14 +23,7 @@ onMounted(() => {
 
 function setComponentVariables () {
 
-    scheduleHeader = document.getElementById('schedule-table-header');
 
-    scheduleDates = document.getElementById('schedule-table-dates');
-    scheduleType = document.getElementById('schedule-table-type');
-    scheduleName = document.getElementById('schedule-table-name');
-    scheduleOpponent = document.getElementById('schedule-table-opponent');
-    scheduleWin = document.getElementById('schedule-table-win');
-    scheduleScore = document.getElementById('schedule-table-score');
     
 };
 
