@@ -53,10 +53,7 @@ let conference = ref();
 let school = ref();
 
 let displaySchools = computed(() => {
-    if(conference.value) {
-        return true;
-    }
-    return false;
+    return conference.value ? true: false;
 });
 
 
@@ -81,11 +78,20 @@ onMounted(() => {
 
 });
 
-function getSchoolInfo(event) {
+async function getSchoolInfo(event) {
 
     // I'll do a db call here
-    console.log(school.value)
-}
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/schedule',
+        params: {
+            schoolName: school.value
+        }
+    })
+      
+    scheduleComponent.value.displaySchedule(response.data);
+};
+
 </script>
 
 
