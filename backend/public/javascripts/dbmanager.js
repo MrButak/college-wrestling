@@ -11,6 +11,7 @@ const client = new Client({
 client.connect();
 
 exports.dbGetSchedule = async (school) => {
+
     let scheduleObj = {}
     let rows = {}
     let tmpStr = "";
@@ -21,7 +22,7 @@ exports.dbGetSchedule = async (school) => {
     let values = [seasonDates, school];
     const res = await client.query(text, values);
 
-    // parse data from db call to object, to make it easier to display on dom
+    // clean up data from db call to make it easier to display on dom
     res.rows.forEach((row) => {
         console.log(row)
         scheduleObj = {
@@ -126,7 +127,7 @@ exports.dbGetSchedule = async (school) => {
             scheduleObj.placement.push('-');
         }
         else {
-            tmpStr += row.placement[0] + 'th/' + row.placement[1];
+            tmpStr += row.placement[0] + 'th / ' + row.placement[1];
             scheduleObj.placement.push(tmpStr);  
         };
 
@@ -147,9 +148,7 @@ exports.dbGetSchedule = async (school) => {
         tmpCnt++;
     });
 
-    // console.log(scheduleObj)
-    // console.log(rows)
-    // //await client.end();
+    //await client.end();
     return rows;
 
     
