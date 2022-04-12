@@ -14,6 +14,6 @@ import Home from './components/home/Home.vue'
 
 <style>
 #app {
-  
+    
 }
 </style>
