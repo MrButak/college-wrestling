@@ -2,7 +2,7 @@
 
 
 <div v-if="displayScheduleData" class="flex flex-1 flex-col items-center w-full gap-12">
-    <table id="schedule-table" class="shadow-lg bg-white border-collapse">
+    <table id="schedule-table" class="table-fixed shadow-lg bg-white border-collapse">
         <thead>
             <tr>
                 <span v-for="header in dskTableHeaders">
@@ -63,7 +63,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent/Participants', 'Win', 'Score'];
+let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent', 'Win', 'Score'];
 
 onMounted(() => {
 
