@@ -10,18 +10,35 @@
                 </span>
             </tr>
         </thead>
-        <tbody>
+        <tbody> 
             <tr>
-                <span>
-
-                </span>
+                
             </tr>
+            
         </tbody>
     </table>
-
+    
     <span v-for="data in scheduleData">
-        <span v-for="dates in data.dates">{{ dates }}</span>
+        <span v-for="text in data">
+        
+            <span v-if="text.length > 1">
+                
+                {{ text }}
+            </span>
+            <span v-else>
+                {{ text[0] }}
+            </span>
+        </span>
     </span>
+
+    <!-- <span v-for="data in scheduleData">
+        <span v-for="counter in Object.keys(scheduleData).length">
+        
+            <p v-for="text in data[counter]">
+                {{ text }}
+            </p>
+        </span>
+    </span> -->
     
 </div>
 
@@ -53,8 +70,6 @@ let displaySchedule = (scheduleRawData) => {
     scheduleData.value = scheduleRawData;
     console.log(scheduleData.value)
 };
-
-
 
 // Functions called from other components
 defineExpose({
