@@ -19,7 +19,9 @@
         </tbody>
     </table>
 
-    
+    <span v-for="data in scheduleData">
+        <span v-for="dates in data.dates">{{ dates }}</span>
+    </span>
     
 </div>
 
@@ -49,7 +51,7 @@ let displayScheduleData = computed(() => {
 let displaySchedule = (scheduleRawData) => {
 
     scheduleData.value = scheduleRawData;
-    console.log(scheduleRawData)   
+    console.log(scheduleData.value)
 };
 
 
