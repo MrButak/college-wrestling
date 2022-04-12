@@ -2,27 +2,27 @@
 
 
 <div v-if="displayScheduleData" class="flex flex-1 flex-col items-center w-full gap-12">
-    <table id="schedule-table">
+    <table id="schedule-table" class="shadow-lg bg-white border-collapse">
         <thead>
             <tr>
                 <span v-for="header in dskTableHeaders">
-                    <th>{{ header }}</th>
+                    <th class="bg-blue-100 border text-left px-8 py-4">{{ header }}</th>
                 </span>
             </tr>
         </thead>
         <tbody>
-            <span v-for="data in scheduleData">
-                <tr v-for="text in data">
-                    <span v-if="text.length > 1">
+            <tr v-for="data in scheduleData">
+                <span v-for="text in data">
+                    <!-- <td v-if="text.length > 1" class="border px-8 py-4">
                         <span v-for="item in text">
-                            <td>{{ item }}</td>
+                            {{ item }}
                         </span>
-                    </span>
-                    <span v-else>
-                        <td>{{ text[0] }}</td>
-                    </span>
-                </tr>
-            </span>
+                    </td> -->
+                    <!-- <span v-else> -->
+                        <td class="border px-8 py-4">{{ text[0] }}</td>
+                    <!-- </span> -->
+                </span>
+            </tr>
         </tbody>
     </table>
     
@@ -63,7 +63,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-let dskTableHeaders = ['Date/Times', 'Type', 'Event Name', 'Opponent/Participants', 'Win', 'Score'];
+let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent/Participants', 'Win', 'Score'];
 
 onMounted(() => {
 
