@@ -5,7 +5,7 @@
 	<div class="bg-white shadow-lg hover:shadow-xl rounded overflow-x-scroll p-3">
 		<table class="table flex flex-col flex-no-wrap table-auto w-full leading-normal">
 
-			<thead class="uppercase text-xs font-semibold text-gray-600 bg-gray-200">
+			<thead class="uppercase text-xs font-bold text-black-600 bg-gray-200">
 				<tr class="hidden md:table-row">
 					<th v-for="count in dskTableHeaders.length - 1" class="text-left p-2">
 						<p>{{ dskTableHeaders[count - 1] }}</p>	
@@ -21,14 +21,17 @@
 			<tbody class="flex-1 sm:flex-none">
 
 				<tr v-for="data in scheduleData" class="border flex p-2 hover:bg-gray-100 md:table-row flex-col flex-no-wrap">
-					<td class="p-2 border">
+					<td class="p-2 border bg-blue-400">
 						<p v-for="date in data.dates" class="truncate ...">
 							{{ date }}
 						</p>
 					</td>
 
 					<td class="p-2 border">
-						<p v-for="time in data.times" class="truncate ...">
+						<p v-if="data.wasCanceled[0]" class="truncate ...">
+							Canceled
+						</p>
+						<p v-else v-for="time in data.times" class="truncate ...">
 							{{ time }}
 						</p>
 					</td>
@@ -38,23 +41,29 @@
 						</p>
 					</td>
 					<td class="p-2 border">
-						<p class="truncate ...">
+						<p v-if="data.name != '-'" class="truncate ...">
 							{{ data.name[0] }}
 						</p>
+						<p v-else class="truncate ...">
+							<span v-if="data.locationStatus == 'neutral'">Dual-{{ data.opponent[0] }}</span>
+							<span v-else-if="data.locationStatus == 'home'">Dual-VS-{{ data.opponent[0] }}</span>
+							<span v-else>Dual-AT-{{ data.opponent[0] }}</span>
+						</p>
 					</td>
 					<td class="p-2 border">
-						<p class="truncate ...">
+						<p v-if="data.opponent[0] != '-'" class="truncate ...">
 							{{ data.opponent[0] }}
 						</p>
-					</td>
-					<td class="p-2 border">
-						<p class="truncate ...">
-							{{ data.points[0] }}
+						<p v-else class="truncate ...">
+							Team Participants
 						</p>
 					</td>
 					<td class="p-2 border">
-						<p class="truncate ...">
-							{{ data.placement[0] }}
+						<p v-if="data.points[0] != '-'" class="truncate ...">
+							{{ data.points[0] }}
+						</p>
+						<p v-else class="truncate ...">
+							Match Results
 						</p>
 					</td>
 					<td class="p-2 border">
@@ -63,8 +72,12 @@
 						</p>
 					</td>
 					
-					<td class="p-2 md:text-right">
-						<div>
+					<td class="p-2 md:text-right border">
+						<div v-if="data.type[0] == 'tournament'">
+							{{ data.placement[0] }}
+						</div>
+
+						<div v-else>
 							{{ data.win[0] }}
 						</div>
 					</td>
@@ -88,7 +101,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent', 'Points', 'Placement', 'Location', 'Win'];
+let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent', 'Points', 'Location', 'Win'];
 
 onMounted(() => {
 
@@ -115,7 +128,5 @@ defineExpose({
 </script>
 
 <style>
-#schedule-table {
 
-}
 </style>
