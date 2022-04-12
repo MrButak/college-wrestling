@@ -34,8 +34,7 @@ exports.dbGetSchedule = async (school) => {
             win: {},
             points: {},
             placement: {},
-            city: {},
-            state: {},
+            eventLocation: {},
             locationStatus: {}
         };
         scheduleObj.dates = [];
@@ -46,8 +45,7 @@ exports.dbGetSchedule = async (school) => {
         scheduleObj.win = [];
         scheduleObj.points = [];
         scheduleObj.placement = [];
-        scheduleObj.city = [];
-        scheduleObj.state = [];
+        scheduleObj.eventLocation = [];
         scheduleObj.locationStatus = [];
 
         // dates
@@ -114,7 +112,6 @@ exports.dbGetSchedule = async (school) => {
             };
             tmpStr += row.points.toString() + '-' + row.opponent_points.toString()
             scheduleObj.points.push(tmpStr);
-            // scheduleObj.oppPoints.push(row.opponent_points);
         };
 
         // tournament placement
@@ -123,13 +120,16 @@ exports.dbGetSchedule = async (school) => {
             scheduleObj.placement.push('-');
         }
         else {
-            tmpStr += row.placement[0] + '/' + row.placement[1];
+            tmpStr += row.placement[0] + 'th/' + row.placement[1];
             scheduleObj.placement.push(tmpStr);  
         };
 
         // city and state
-        scheduleObj.city.push(row.city);
-        scheduleObj.state.push(row.state);
+        tmpStr = '';
+        tmpStr += row.city + ', ' + row.state;
+        scheduleObj.eventLocation.push(tmpStr);
+        // scheduleObj.city.push(row.city);
+        // scheduleObj.state.push(row.state);
 
         // home or away game
         if(!row.location_status) {
