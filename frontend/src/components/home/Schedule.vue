@@ -1,6 +1,7 @@
 <template>
 
-<div class="flex flex-1 flex-col items-center w-full gap-12">
+
+<div v-if="displayScheduleData" class="flex flex-1 flex-col items-center w-full gap-12">
     <table id="schedule-table">
         <thead>
             <tr>
@@ -10,15 +11,26 @@
             </tr>
         </thead>
         <tbody>
-            
+            <tr>
+                <span>
+
+                </span>
+            </tr>
         </tbody>
     </table>
+
+    
+    
 </div>
+
+
+
+
 </template>
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 let dskTableHeaders = ['Date/Times', 'Type', 'Event Name', 'Opponent/Participants', 'Win', 'Score'];
 
@@ -28,12 +40,18 @@ onMounted(() => {
 });
 
 
+let scheduleData = ref(); // returned object from db call
 
+let displayScheduleData = computed(() => {
+    return scheduleData.value ? true : false;
+});
 
-let displaySchedule = (scheduleData) => {
+let displaySchedule = (scheduleRawData) => {
 
-   console.log(scheduleData)
+    scheduleData.value = scheduleRawData;
+    console.log(scheduleRawData)   
 };
+
 
 
 // Functions called from other components
