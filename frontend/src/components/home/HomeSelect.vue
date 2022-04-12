@@ -10,14 +10,27 @@
     </select>
 
     <!-- conferences and schools SELECT elements -->
-    <div class="flex gap-12">
-        <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-            <option v-bind:value="key" v-for="(value, key) in conAndSchObject">{{ key.toUpperCase() }}
-            </option>
-        </select>
+    <div class="flex gap-12 text-center">
 
-        <select class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500" name="animals">
-        </select>
+        <div class="flex flex-col">
+            <text>Conference</text>
+            <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                <option v-bind:value="key" v-for="(value, key) in conAndSchObject">
+                    {{ key.toUpperCase() }}
+                </option>
+            </select>
+        </div>
+
+        <div class="flex flex-col">
+            <text>School</text>
+            <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                <option v-if="!displaySchools" value="" selected>Schools</option>
+                <option v-if="displaySchools" v-for="sch in conAndSchObject[conference]">
+                    {{ sch }} 
+                </option>
+            </select>
+        </div>
+
     </div>
 
     <button @click="getSchoolInfo($event)" class="block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">Go</button>
@@ -28,14 +41,20 @@
 
 </template>
 
+
 <script async setup>
-import { ref, onMounted } from 'vue';
+
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import Schedule from './Schedule.vue';
 
 
-let conference = ref()
-// let schools = computed(() => )
+let conference = ref();
+let school = ref();
+
+let displaySchools = computed(() => {
+    return conference.value ? true: false;
+});
 
 
 // to call functions in Schedule.vue component
@@ -58,6 +77,21 @@ onMounted(() => {
 
 
 });
+
+async function getSchoolInfo(event) {
+
+    // I'll do a db call here
+    let response = await axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8080/schedule',
+        params: {
+            schoolName: school.value
+        }
+    })
+      
+    scheduleComponent.value.displaySchedule(response.data);
+};
+
 </script>
 
 
