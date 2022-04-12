@@ -10,26 +10,38 @@
                 </span>
             </tr>
         </thead>
-        <tbody> 
-            <tr>
-                
-            </tr>
-            
+        <tbody>
+            <span v-for="data in scheduleData">
+                <tr v-for="text in data">
+                    <span v-if="text.length > 1">
+                        <span v-for="item in text">
+                            <td>{{ item }}</td>
+                        </span>
+                    </span>
+                    <span v-else>
+                        <td>{{ text[0] }}</td>
+                    </span>
+                </tr>
+            </span>
         </tbody>
     </table>
     
-    <span v-for="data in scheduleData">
+    <!-- <span v-for="data in scheduleData">
         <span v-for="text in data">
         
             <span v-if="text.length > 1">
+                <span v-for="item in text">
+                    {{ item }}
+                </span>
                 
-                {{ text }}
             </span>
             <span v-else>
                 {{ text[0] }}
             </span>
         </span>
-    </span>
+    </span> -->
+
+    
 
     <!-- <span v-for="data in scheduleData">
         <span v-for="counter in Object.keys(scheduleData).length">
