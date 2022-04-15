@@ -64,15 +64,7 @@ defineExpose({
      Schedule
  });
 
-let conAndSchObject = {
-        bigten: ['Illinois', 'Indiana', 'University of Iowa', 'Maryland', 'University of Michigan', 'Michigan State University', 'University of Minnesota', 'Nebraska', 'Northwestern University', 'Ohio State University', 'Penn State', 'Purdue University', 'Rutgers', 'Wisconsin'],
-        big12: ['Iowa State University', 'University of Missouri', 'North Dakota State University', 'University of Northern Colorado', 'University of Northern Iowa', 'Oklahoma State', 'South Dakota State University', 'Air Force', 'Utah Valley University', 'West Virginia University', 'University of Wyoming', 'University of Oklahoma'],
-        acc: ['Duke University', 'NC State', 'North Carolina', 'University of Pittsburgh', 'University of Virginia', 'Virginia Tech'],
-        eiwa: ['American University', 'Binghamton University', 'Brown University', 'Bucknell University', 'Columbia University', 'Cornell University', 'Drexel University', 'Franklin & Marshall College', 'Harvard University', 'Hofstra University', 'Lehigh University', 'Long Island University', 'University of Pennsylvania', 'Princeton University', 'Sacred Heart University', 'Army', 'Navy'],
-        mac: ['Bloomsburg University of Pennsylvania', 'University at Buffalo', 'Central Michigan University', 'Clarion University of Pennsylvania', 'Cleveland State University', 'Edinboro University of Pennsylvania', 'George Mason University', 'Kent State University', 'Lock Haven University of Pennsylvania', 'Northern Illinois University', 'Ohio University', 'Rider University', 'SIU Edwardsville'],
-        pac12: ['Arizona State University', 'Cal Poly', 'California State University, Bakersfield', 'Little Rock', 'Oregon State University', 'Stanford University'],
-        socon: ['Appalachian State University', 'Campbell University', 'The Citadel', 'Davidson College', 'Gardner-Webb University', 'Presbyterian College', 'Chattanooga', 'Virginia Military Institute']
-};
+
 
 onMounted(() => {
 
@@ -93,6 +85,85 @@ async function getSchoolInfo(event) {
     scheduleComponent.value.displaySchedule(response.data);
 };
 
+let conAndSchObject = {
+    bigten: [
+      'Illinois',     'Indiana',
+      'Iowa',         'Maryland',
+      'Michigan',     'Michigan State',
+      'Minnesota',    'Nebraska',
+      'Northwestern', 'Ohio State',
+      'Pennsylvania', 'Purdue',
+      'Rutgers',      'Wisconsin'
+    ],
+    big12: [
+      'Air Force',
+      'Cal Baptist',
+      'Iowa State',
+      'Missouri',
+      'North Dakota State',
+      'Northern Colorado',
+      'Northern Iowa',
+      'Oklahoma',
+      'Oklahoma State',
+      'South Dakota State',
+      'Utah Valley',
+      'West Virginia',
+      'Wyoming'
+    ],
+    acc: [
+      'Duke',
+      'North Carolina',
+      'North Carolina State',
+      'Pittsburgh',
+      'Virginia',
+      'VMI'
+    ],
+    eiwa: [
+      'American',            'Army',
+      'Binghamton',          'Brown',
+      'Bucknell',            'Columbia',
+      'Cornell',             'Drexel',
+      'Franklin & Marshall', 'Harvard',
+      'Hofstra',             'Lehigh',
+      'LIU',                 'Navy',
+      'Penn State',          'Princeton',
+      'Sacred Heart'
+    ],
+    mac: [
+      'Bloomsburg',
+      'Buffalo',
+      'Central Michigan',
+      'Clarion',
+      'Cleveland State',
+      'Edinboro',
+      'George Mason',
+      'Kent State',
+      'Lock Haven',
+      'Northern Illinois',
+      'Ohio',
+      'Rider',
+      'Southern Illinois Edwardsville'
+    ],
+    pac12: [
+      'Arizona State',
+      'Cal Poly',
+      'CSU Bakersfield',
+      'Little Rock',
+      'Oregon State',
+      'Stanford'
+    ],
+    socon: [
+      'Appalachian State',
+      'Bellarmine',
+      'Campbell',
+      'Chattanooga',
+      'Davidson',
+      'Gardner-Webb',
+      'Presbyterian',
+      'The Citadel',
+      'Virginia Tech'
+    ]
+  };
 </script>
 
 
