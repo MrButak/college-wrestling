@@ -26,6 +26,7 @@
             <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
                 <option v-if="!displaySchools" value="" selected>Schools</option>
                 <option v-if="displaySchools" v-for="sch in schools">
+                    <!-- can you expand this variable to school? Remember, avoid abbreviation or shortening words -->
                     {{ sch }} 
                 </option>
             </select>

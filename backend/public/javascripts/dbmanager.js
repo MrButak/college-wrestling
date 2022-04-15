@@ -1,4 +1,5 @@
 const { Pool, Client } = require('pg')
+// If you're not using the dotenv config, I'd remove this line
 config = require('dotenv').config()
 
 const client = new Client({
@@ -39,6 +40,11 @@ exports.dbGetSchedule = async (school) => {
             locationStatus: {},
             wasCanceled: {}
         };
+      // How come you don't set these to arrays when you are declaring the scheduleObj object?
+      // i.e.
+      // scheduleObj = {
+      //  dates: []
+      // }
         scheduleObj.dates = [];
         scheduleObj.times = [];
         scheduleObj.type = [];
@@ -52,6 +58,7 @@ exports.dbGetSchedule = async (school) => {
         scheduleObj.wasCanceled = [];
 
         // was canceled?
+      // Let's make sure to go over this post-processing a little more next Wed. There's a lot we can do to help clean this up
         if(row.was_canceled) {
             scheduleObj.wasCanceled.push(true);
         }

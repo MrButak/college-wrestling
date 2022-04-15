@@ -7,6 +7,7 @@
 
 			<thead class="uppercase text-xs font-bold text-black-600 bg-gray-200">
 				<tr class="hidden">
+          <!-- You can use v-for with an index in v-for="(item, index) in property" -->
 					<th v-for="count in dskTableHeaders.length - 1" class="text-left p-2">
 						<p>{{ dskTableHeaders[count - 1] }}</p>	
 					</th>
@@ -19,6 +20,7 @@
 
 			<tbody class="flex-1 sm:flex-none">
 
+        <!-- Can you think of a name other than 'data'? It's not very descriptive -->
 				<tr v-for="data in scheduleData" class="border flex p-2 hover:bg-gray-100 md:table-row flex-col flex-no-wrap">
 					<td class="p-2 border bg-blue-400">
 						<p v-for="date in data.dates" class="truncate ...">
@@ -100,6 +102,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
+// What does DSK stand for? Remember, space is no longer at a premium - you can afford longer, descriptive variable names. Your IDE's autocomplete will be your friend
 let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent', 'Points', 'Location', 'Win'];
 
 onMounted(() => {
@@ -108,8 +111,13 @@ onMounted(() => {
 });
 
 
+// Does this need a default value?
 let scheduleData = ref(); // returned object from db call
 
+// You can shorten this to
+// let displayScheduleData = computed(() => !!scheduleData.value);
+// The !! will convert the value to a boolean
+// https://stackoverflow.com/questions/29312123/how-does-the-double-exclamation-work-in-javascript
 let displayScheduleData = computed(() => {
 	return scheduleData.value ? true : false;
 });
