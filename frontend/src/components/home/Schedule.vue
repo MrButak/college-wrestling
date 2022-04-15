@@ -1,4 +1,5 @@
 <template>
+
 <div class="w-full flex justify-center">
     <h2>{{ schoolName }}</h2>
 </div>
@@ -10,11 +11,11 @@
 
 			<thead class="uppercase text-xs font-bold text-black-600 bg-gray-200">
 				<tr class="hidden md:table-row">
-					<th v-for="count in dskTableHeaders.length - 1" class="text-left p-2">
-						<p>{{ dskTableHeaders[count - 1] }}</p>	
+					<th v-for="count in tableHeader.length - 1" class="text-left p-2">
+						<p>{{ tableHeader[count - 1] }}</p>	
 					</th>
 					<th class="text-right p-2">
-						<p>{{ dskTableHeaders[dskTableHeaders.length - 1] }}</p>	
+						<p>{{ tableHeader[tableHeader.length - 1] }}</p>	
 					</th>
 					<th></th>
 				</tr>
@@ -22,7 +23,7 @@
 
 			<tbody class="flex-1 sm:flex-none">
 
-				<tr v-for="data in scheduleData" class="border flex p-2 hover:bg-gray-100 md:table-row flex-col flex-no-wrap">
+				<tr v-for="matchData in scheduleData" class="border flex p-2 hover:bg-gray-100 md:table-row flex-col flex-no-wrap">
 
                     <td class="md:hidden bg-blue-400">
                         <p class="invisible">.</p>
@@ -30,23 +31,23 @@
 
 					<td class="p-2 border">
 						<p class="flex justify-between truncate ...">
-							{{ data.dates }} <text class="md:hidden text-right">Date</text>
+							{{ matchData.dates }} <text class="md:hidden text-right">Date</text>
 						</p>
 					</td>
 					
 					<td class="p-2 border">
 						<p class="flex justify-between truncate ...">
-							{{ data.type.toUpperCase() }} <text class="md:hidden text-right">Type</text>
+							{{ matchData.type.toUpperCase() }} <text class="md:hidden text-right">Type</text>
 						</p>
 					</td>
 					<td class="p-2 border">
 						<p class="flex justify-between truncate ...">
-							{{ data.name }} <text class="md:hidden text-right">Event Name</text>
+							{{ matchData.name }} <text class="md:hidden text-right">Event Name</text>
 						</p>
 					</td>
 					<td class="p-2 border">
-						<p v-if="data.opponent != '-'" class="flex justify-between truncate ...">
-							{{ data.opponent }} <text class="md:hidden text-right">Opponent</text>
+						<p v-if="matchData.opponent != '-'" class="flex justify-between truncate ...">
+							{{ matchData.opponent }} <text class="md:hidden text-right">Opponent</text>
 						</p>
 						<p v-else class="flex justify-between truncate ...">
 							Team Participants <text class="md:hidden text-right">Opponent</text>
@@ -54,8 +55,8 @@
                         
 					</td>
 					<td class="p-2 border">
-						<p v-if="data.points != '-'" class="flex justify-between truncate ...">
-							{{ data.points }} <text class="md:hidden text-right">Points</text>
+						<p v-if="matchData.points != '-'" class="flex justify-between truncate ...">
+							{{ matchData.points }} <text class="md:hidden text-right">Points</text>
 						</p>
 						<p v-else class="flex justify-between truncate ...">
 							Match Results <text class="md:hidden text-right">Points</text>
@@ -65,7 +66,7 @@
 					
 					<td class="p-2 md:text-right border">
 						<div class="flex justify-between">
-							{{ data.win }} <text class="md:hidden text-right">Win</text>
+							{{ matchData.win }} <text class="md:hidden text-right">Win</text>
 						</div>
 					</td>
                     
@@ -90,7 +91,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-let dskTableHeaders = ['Date', 'Type', 'Event Name', 'Opponent', 'Points', 'Win'];
+let tableHeader = ['Date', 'Type', 'Event Name', 'Opponent', 'Points', 'Win'];
 
 onMounted(() => {
 
