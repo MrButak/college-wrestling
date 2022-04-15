@@ -14,9 +14,9 @@
 
         <div class="flex flex-col">
             <text>Conference</text>
-            <select v-model="conference" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-                <option v-bind:value="key" v-for="(value, key) in conAndSchObject">
-                    {{ key.toUpperCase() }}
+            <select v-model="conference" class="text-center uppercase block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                <option v-for="c in conferences">
+                    {{ c }}
                 </option>
             </select>
         </div>
@@ -25,7 +25,7 @@
             <text>School</text>
             <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
                 <option v-if="!displaySchools" value="" selected>Schools</option>
-                <option v-if="displaySchools" v-for="sch in conAndSchObject[conference]">
+                <option v-if="displaySchools" v-for="sch in schools">
                     {{ sch }} 
                 </option>
             </select>
@@ -50,12 +50,13 @@ import axios from 'axios';
 import Schedule from './Schedule.vue';
 
 
-let conference = ref();
+let conference = ref('Select ...');
 let school = ref();
-
 let displaySchools = computed(() => {
     return conference.value ? true: false;
 });
+let conferences = computed(() => Object.keys(conAndSchObject));
+let schools = computed(() => conAndSchObject[conference.value]);
 
 
 // to call functions in Schedule.vue component
