@@ -6,5 +6,6 @@ exports.getSchedule = async (req, res, next) => {
     
     let schedule = await dbManager.dbGetSchedule(school);
     res.status(200).json(schedule);
+    // comment
 
 };
