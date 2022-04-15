@@ -22,7 +22,8 @@ exports.dbGetSchedule = async (school) => {
     let values = [seasonDates, school];
     const res = await client.query(text, values);
 
-    // clean up data from db call to make it easier to display on dom
+    // Clean up data from db call to make it easier to display on dom
+    // 
     res.rows.forEach((row) => {
         console.log(row)
         scheduleObj = {
