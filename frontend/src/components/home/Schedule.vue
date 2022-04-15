@@ -99,6 +99,7 @@ onMounted(() => {
 });
 
 
+// Does this need a default value?
 let scheduleData = ref(); // returned object from db call
 let schoolName = ref();
 let displayScheduleData = computed(() => {
