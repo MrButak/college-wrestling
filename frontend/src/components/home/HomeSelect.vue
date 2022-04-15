@@ -24,7 +24,7 @@
         <div class="flex flex-col">
             <text>School</text>
             <select v-model="school" class="text-center block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
-                <option v-if="!displaySchools" value="" selected>Schools</option>
+                <option v-if="!displaySchools">Schools</option>
                 <option v-if="displaySchools" v-for="sch in schools">
                     {{ sch }} 
                 </option>
@@ -36,8 +36,9 @@
     <button @click="getSchoolInfo($event)" class="block w-32 sm:w-64 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">Go</button>
 </div>
 
+<div class="pt-6">
 <Schedule ref="scheduleComponent" />
-
+</div>
 
 
 </template>
@@ -50,11 +51,12 @@ import axios from 'axios';
 import Schedule from './Schedule.vue';
 
 
-let conference = ref('Select ...');
+let conference = ref();
 let school = ref();
 let displaySchools = computed(() => {
     return conference.value ? true: false;
 });
+
 let conferences = computed(() => Object.keys(conAndSchObject));
 let schools = computed(() => conAndSchObject[conference.value]);
 
@@ -74,7 +76,7 @@ onMounted(() => {
 
 async function getSchoolInfo(event) {
 
-    // I'll do a db call here
+    // backend call for db query
     let response = await axios({
         method: 'get',
         url: 'http://127.0.0.1:8080/schedule',
@@ -82,11 +84,12 @@ async function getSchoolInfo(event) {
             schoolName: school.value
         }
     })
-      
-    scheduleComponent.value.displaySchedule(response.data);
+    
+    scheduleComponent.value.displaySchedule(response.data, school.value);
 };
 
 let conAndSchObject = {
+    
     bigten: [
       'Illinois',     'Indiana',
       'Iowa',         'Maryland',

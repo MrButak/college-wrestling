@@ -22,135 +22,61 @@ exports.dbGetSchedule = async (school) => {
     let values = [seasonDates, school];
     const res = await client.query(text, values);
 
-    // Clean up data from db call to make it easier to display on dom
-    // 
+    // Clean up data from db call to make it easier to display on DOM
     res.rows.forEach((row) => {
-        console.log(row)
-        scheduleObj = {
-            dates: {},
-            times: {},
-            type: {},
-            name: {},
-            opponent: {},
-            win: {},
-            points: {},
-            placement: {},
-            eventLocation: {},
-            locationStatus: {},
-            wasCanceled: {}
-        };
-        scheduleObj.dates = [];
-        scheduleObj.times = [];
-        scheduleObj.type = [];
-        scheduleObj.name = [];
-        scheduleObj.opponent = [];
-        scheduleObj.win = [];
-        scheduleObj.points = [];
-        scheduleObj.placement = [];
-        scheduleObj.eventLocation = [];
-        scheduleObj.locationStatus = [];
-        scheduleObj.wasCanceled = [];
 
-        // was canceled?
-        if(row.was_canceled) {
-            scheduleObj.wasCanceled.push(true);
-        }
+        scheduleObj = {
+            dates: '',
+            type: '',
+            name: '',
+            opponent: '',
+            win: '',
+            points: '',
+        };
 
         // dates
-        tmpStr = '';
-        if(row.event_dates.length > 1) {
-            
-            row.event_dates.forEach((date) => {
-                tmpStr = '';
-                tmpStr += date.toISOString().slice(5, 10);
-                scheduleObj.dates.push(tmpStr);
-            });
-        }
-        else {
-
-            scheduleObj.dates.push(row.event_dates[0].toISOString().slice(5, 10));
-        };
-        
-        // times
-        row.event_times.forEach((time) => {
-            tmpStr = '';
-            if(typeof(time) === 'object') {
-                time.forEach((t) => {
-                    tmpStr += t.slice(0, 5) + '/';
-                });
-                tmpStr = tmpStr.slice(0, -1);
-                scheduleObj.times.push(tmpStr);
-            }
-            else {
-                scheduleObj.times.push(time.slice(0, 5));
-            };
-        });
+        scheduleObj.dates = row.event_dates[0].toISOString().slice(5, 10);
 
         // event type
-        scheduleObj.type.push(row.event_type);
+        scheduleObj.type = row.event_type;
 
         // event name
         if(!row.event_name) {
-            scheduleObj.name.push('-');
+            scheduleObj.name = '-';
         }
         else {
-            scheduleObj.name.push(row.event_name);
+            scheduleObj.name = row.event_name;
         };
 
         // opponent
         if(!row.opponent_school_short_name) {
-            scheduleObj.opponent.push('-');
+            scheduleObj.opponent = '-';
         }
         else {
-            scheduleObj.opponent.push(row.opponent_school_short_name);
+            scheduleObj.opponent = row.opponent_school_short_name;
         };
 
         // win / lose & points
         tmpStr = '';
         if(!row.points) {
-            scheduleObj.win.push('-');
-            scheduleObj.points.push('-');
+            scheduleObj.win = '-';
+            scheduleObj.points = '-';
         }
         else {
             if(row.points > row.opponent_points) {
-                scheduleObj.win.push('W');
+                scheduleObj.win = 'W';
             }
             else {
-                scheduleObj.win.push('L');
+                scheduleObj.win = 'L';
             };
-            tmpStr += row.points.toString() + '-' + row.opponent_points.toString()
-            scheduleObj.points.push(tmpStr);
-        };
-
-        // tournament placement
-        tmpStr = '';
-        if(!row.placement) {
-            scheduleObj.placement.push('-');
-        }
-        else {
-            tmpStr += row.placement[0] + 'th / ' + row.placement[1];
-            scheduleObj.placement.push(tmpStr);  
-        };
-
-        // city and state
-        tmpStr = '';
-        tmpStr += row.city + ', ' + row.state;
-        scheduleObj.eventLocation.push(tmpStr);
-
-        // home or away game
-        if(!row.location_status) {
-            scheduleObj.locationStatus.push('-');
-        }
-        else {
-            scheduleObj.locationStatus.push(row.location_status);
+            tmpStr += row.points.toString() + '-' + row.opponent_points.toString();
+            scheduleObj.points = tmpStr;
         };
 
         rows[tmpCnt] = scheduleObj;
         tmpCnt++;
     });
-
-    //await client.end();
+    console.log(rows)
+    // //await client.end();
     return rows;
-
-    
 };

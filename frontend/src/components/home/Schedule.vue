@@ -1,4 +1,7 @@
 <template>
+<div class="w-full flex justify-center">
+    <h2>{{ schoolName }}</h2>
+</div>
 
 <div v-if="displayScheduleData" class="space-y-2">
 	
@@ -6,7 +9,7 @@
 		<table class="table flex flex-col flex-no-wrap table-auto w-full leading-normal">
 
 			<thead class="uppercase text-xs font-bold text-black-600 bg-gray-200">
-				<tr class="hidden">
+				<tr class="hidden md:table-row">
 					<th v-for="count in dskTableHeaders.length - 1" class="text-left p-2">
 						<p>{{ dskTableHeaders[count - 1] }}</p>	
 					</th>
@@ -20,65 +23,52 @@
 			<tbody class="flex-1 sm:flex-none">
 
 				<tr v-for="data in scheduleData" class="border flex p-2 hover:bg-gray-100 md:table-row flex-col flex-no-wrap">
-					<td class="p-2 border bg-blue-400">
-						<p v-for="date in data.dates" class="truncate ...">
-							{{ date }}
-						</p>
-					</td>
+
+                    <td class="md:hidden bg-blue-400">
+                        <p class="invisible">.</p>
+                    </td>
+
 					<td class="p-2 border">
-						<p v-if="data.wasCanceled[0]" class="truncate ...">
-							Canceled
-						</p>
-						<p v-else v-for="time in data.times" class="truncate ...">
-							{{ time }}
-						</p>
-					</td>
-					<td class="p-2 border">
-						<p class="truncate ...">
-							{{ data.type[0].toUpperCase() }}
-						</p>
-					</td>
-					<td class="p-2 border">
-						<p v-if="data.name != '-'" class="truncate ...">
-							{{ data.name[0] }}
-						</p>
-						<p v-else class="truncate ...">
-							<span v-if="data.locationStatus == 'neutral'">Dual-{{ data.opponent[0] }}</span>
-							<span v-else-if="data.locationStatus == 'home'">Dual-VS-{{ data.opponent[0] }}</span>
-							<span v-else>Dual-AT-{{ data.opponent[0] }}</span>
-						</p>
-					</td>
-					<td class="p-2 border">
-						<p v-if="data.opponent[0] != '-'" class="truncate ...">
-							{{ data.opponent[0] }}
-						</p>
-						<p v-else class="truncate ...">
-							Team Participants
-						</p>
-					</td>
-					<td class="p-2 border">
-						<p v-if="data.points[0] != '-'" class="truncate ...">
-							{{ data.points[0] }}
-						</p>
-						<p v-else class="truncate ...">
-							Match Results
-						</p>
-					</td>
-					<td class="p-2 border">
-						<p class="truncate ...">
-							{{ data.eventLocation[0] }}
+						<p class="flex justify-between truncate ...">
+							{{ data.dates }} <text class="md:hidden text-right">Date</text>
 						</p>
 					</td>
 					
+					<td class="p-2 border">
+						<p class="flex justify-between truncate ...">
+							{{ data.type.toUpperCase() }} <text class="md:hidden text-right">Type</text>
+						</p>
+					</td>
+					<td class="p-2 border">
+						<p class="flex justify-between truncate ...">
+							{{ data.name }} <text class="md:hidden text-right">Event Name</text>
+						</p>
+					</td>
+					<td class="p-2 border">
+						<p v-if="data.opponent != '-'" class="flex justify-between truncate ...">
+							{{ data.opponent }} <text class="md:hidden text-right">Opponent</text>
+						</p>
+						<p v-else class="flex justify-between truncate ...">
+							Team Participants <text class="md:hidden text-right">Opponent</text>
+						</p>
+                        
+					</td>
+					<td class="p-2 border">
+						<p v-if="data.points != '-'" class="flex justify-between truncate ...">
+							{{ data.points }} <text class="md:hidden text-right">Points</text>
+						</p>
+						<p v-else class="flex justify-between truncate ...">
+							Match Results <text class="md:hidden text-right">Points</text>
+						</p>
+					</td>
+					
+					
 					<td class="p-2 md:text-right border">
-						<div v-if="data.type[0] == 'tournament'">
-							{{ data.placement[0] }}
-						</div>
-
-						<div v-else>
-							{{ data.win[0] }}
+						<div class="flex justify-between">
+							{{ data.win }} <text class="md:hidden text-right">Win</text>
 						</div>
 					</td>
+                    
 					<!-- Could use this button in the future -->
 					<!-- <td class="text-right">
 						<button type="button" class="inline-block text-gray-500 hover:text-gray-700">
@@ -100,7 +90,7 @@
 
 import { ref, computed, onMounted } from 'vue';
 
-let dskTableHeaders = ['Date', 'Time', 'Type', 'Event Name', 'Opponent', 'Points', 'Location', 'Win'];
+let dskTableHeaders = ['Date', 'Type', 'Event Name', 'Opponent', 'Points', 'Win'];
 
 onMounted(() => {
 
@@ -109,14 +99,15 @@ onMounted(() => {
 
 
 let scheduleData = ref(); // returned object from db call
-
+let schoolName = ref();
 let displayScheduleData = computed(() => {
 	return scheduleData.value ? true : false;
 });
 
 
-let displaySchedule = (scheduleRawData) => {
+let displaySchedule = (scheduleRawData, chosenSchoolName) => {
 
+    schoolName.value = chosenSchoolName;
 	scheduleData.value = scheduleRawData;
 	console.log(scheduleData.value)
 };
