@@ -22,5 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
 *.env
+
+# Build files
+public/css
+public/dist
+public/img
+public/fonts
+public/js
+public/stylesheets
