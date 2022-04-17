@@ -34,8 +34,9 @@ exports.dbGetSchedule = async (school) => {
             points: '',
         };
 
-        // dates
-        scheduleObj.dates = row.event_dates[0].toISOString().slice(5, 10);
+        // dates (formated dd-mm-yy)
+        let yearStr = row.event_dates[0].toISOString().slice(2, 4); // last two digits of year
+        scheduleObj.dates = row.event_dates[0].toISOString().slice(5, 10) + '-' + yearStr;
 
         // event type
         scheduleObj.type = row.event_type;
@@ -76,7 +77,7 @@ exports.dbGetSchedule = async (school) => {
         rows[tmpCnt] = scheduleObj;
         tmpCnt++;
     });
-    console.log(rows)
+    // console.log(rows)
     // //await client.end();
     return rows;
 };
